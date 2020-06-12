@@ -54,7 +54,7 @@ class ResultList extends Component {
                     {this.props.movieList.data.slice(this.state.minValue, this.state.maxValue).map((movie, index) => (
                         <ul className="container-heading">
                             <li>
-                                <img src={movie.Poster} className="imageResult" />
+                                <img src={movie.Poster} className="imageResult" alt={movie.Title} />
                             </li>
                             <li key={index}>{movie.Title}</li>
                             {

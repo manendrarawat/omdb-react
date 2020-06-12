@@ -1,22 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { Input, Tabs, Modal } from 'antd';
 import { getNews, resetMovies, getMovieDetail, resetMovieDetail } from '../actions'
 import ResultList from './ResultList';
 
 const { TabPane } = Tabs;
-
-let styles = {
-  backgroundColor: 'HotPink',
-  width: '250px',
-  height: '100px',
-  borderRadius: '100px',
-  display: 'block',
-  margin: '50px auto',
-  fontSize: '25px',
-  border: '3px solid '
-}
 
 class Search extends React.Component {
   constructor(props) {
