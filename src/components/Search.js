@@ -26,28 +26,22 @@ class Search extends React.Component {
       showModal: false
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.sendQuery = this.sendQuery.bind(this);
+    //this.onChange = this.onChange.bind(this);
+    //this.sendQuery = this.sendQuery.bind(this);
     this.onTabChange = this.onTabChange.bind(this);
     this.showMovieDetails = this.showMovieDetails.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
+  setSearchTerm = _.debounce(searchTerm => {
+      this.setState({ searchTerm })
+      if(searchTerm !== ''){
+        this.props.getNews(searchTerm);
+      } else{
+        this.props.resetMovies();
+      }
+  }, 1000)
 
-  onChange({ target: { value } }) {
-
-    this.setState({ searchText: value })
-    const search = _.debounce(this.sendQuery, 3000);
-
-    if (value) {
-      search(value);
-    }
-
-  };
-
-  sendQuery(searchData) {
-    this.props.getNews(searchData)
-  }
 
   onTabChange() {
     this.props.resetMovies();
@@ -78,9 +72,8 @@ class Search extends React.Component {
             <Input
               className="SearchBarInput"
               type="text"
-              value={this.state.searchText}
               placeholder="Enter Movie Title"
-              onChange={this.onChange}
+              onChange={e => {this.setSearchTerm(e.target.value)}}
             />
 
             <ResultList
@@ -90,12 +83,11 @@ class Search extends React.Component {
             />
           </TabPane>
           <TabPane tab="Search Movies" key="2">
-            <Input
+          <Input
               className="SearchBarInput"
               type="text"
-              value={this.state.searchText}
               placeholder="Enter Movie Title"
-              onChange={this.onChange}
+              onChange={e => {this.setSearchTerm(e.target.value)}}
             />
 
             <ResultList movieList={this.props.movieList} />
