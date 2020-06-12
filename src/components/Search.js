@@ -26,26 +26,29 @@ class Search extends React.Component {
       showModal: false
     };
 
-    //this.onChange = this.onChange.bind(this);
+    this.setSearchTerm = this.setSearchTerm.bind(this);
     //this.sendQuery = this.sendQuery.bind(this);
     this.onTabChange = this.onTabChange.bind(this);
     this.showMovieDetails = this.showMovieDetails.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  setSearchTerm = _.debounce(searchTerm => {
-      this.setState({ searchTerm })
-      if(searchTerm !== ''){
-        this.props.getNews(searchTerm);
-      } else{
-        this.props.resetMovies();
-      }
-  }, 1000)
+  setSearchTerm(searchTerm){
+    this.setState({
+      searchTerm
+    });
+
+    if(searchTerm !== ''){
+      this.props.getNews(searchTerm);
+    } else{
+      this.props.resetMovies();
+    }
+  }
 
 
   onTabChange() {
     this.props.resetMovies();
-    this.setState({ searchText: '' })
+    this.setState({ searchTerm: '' })
   }
 
   showMovieDetails(imdbId) {
@@ -73,6 +76,7 @@ class Search extends React.Component {
               className="SearchBarInput"
               type="text"
               placeholder="Enter Movie Title"
+              value={this.state.searchTerm}
               onChange={e => {this.setSearchTerm(e.target.value)}}
             />
 
@@ -87,6 +91,7 @@ class Search extends React.Component {
               className="SearchBarInput"
               type="text"
               placeholder="Enter Movie Title"
+              value={this.state.searchTerm}
               onChange={e => {this.setSearchTerm(e.target.value)}}
             />
 

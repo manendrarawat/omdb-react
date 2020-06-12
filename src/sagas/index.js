@@ -1,4 +1,4 @@
-import { put, takeLatest, all } from 'redux-saga/effects';
+import { put, takeLatest, all, debounce } from 'redux-saga/effects';
 
 function* fetchMovies(action) {
 
@@ -21,7 +21,8 @@ function* fetchMovieDetails(action) {
 }
 
 function* actionWatcher() {
-  yield takeLatest('GET_MOVIES', fetchMovies);
+  //yield takeLatest('GET_MOVIES', fetchMovies);
+  yield debounce(1000, 'GET_MOVIES', fetchMovies)
   yield takeLatest('GET_MOVIES_DETAIL', fetchMovieDetails)
 }
 
